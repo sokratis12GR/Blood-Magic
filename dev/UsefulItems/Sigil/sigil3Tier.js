@@ -14,7 +14,6 @@ IDRegistry.genItemID("sigilOfPhantomBridgeDeactive");
 Item.createItem("sigilOfPhantomBridgeDeactive", "Sigil Of Phantom Bridge", {name: "bridge_sigil", meta: 0}, {stack: 1});
 IDRegistry.genItemID("sigilOfPhantomBridgeActive");
 Item.createItem("sigilOfPhantomBridgeActive", "Sigil Of Phantom Bridge", {name: "bridge_sigil", meta: 1}, {stack: 1, isTech:true});
-//TODO сделать сигил удержания рабочим
 Translation.addTranslation("Elemental Affinity Sigil", {ru: "Сигил Элементарной Защиты"});
 Translation.addTranslation("Sigil Of Holding", {ru: "Сигил Удержания"});
 Translation.addTranslation("Sigil Of Magnetism", {ru: "Сигил Магнетизма"});
@@ -90,7 +89,7 @@ Item.registerUseFunction("torchSigil", function(coords, item, block){
 TileEntity.registerPrototype(BlockID.bloodLamp, {
 	tick: function(){
 		if(World.getWorldTime()%20==0){
-			Particles.addFarParticle(10,this.x+Math.random()/3+0.33, this.y+Math.random()/3+0.33+0.3, this.z+Math.random()/3+0.33);
+			Particles.addFarParticle(10,this.x+Math.random()/3+0.33, this.y+Math.random()/3+0.33+0.3, this.z+Math.random()/3+0.33,0,0,0,0);
 		}
 	},
 });
