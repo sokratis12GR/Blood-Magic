@@ -50,7 +50,7 @@ var bloodNetwork={
 
 function addBloodParticle(x,y,z, count){
 	for( var i = 0; i<=count; i++){
-		Particles.addFarParticle(10,x+Math.random(), y+Math.random()/2, z+Math.random());
+		Particles.addFarParticle(10,x+Math.random(), y+Math.random()/2, z+Math.random(),0,0,0,0);
 	}
 }
 
