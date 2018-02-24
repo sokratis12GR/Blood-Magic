@@ -100,11 +100,9 @@ Item.registerUseFunction("ritualDiviner", function(coords, item, block){
 			if(World.getBlock(coords.x+block.x, coords.y+block.y, coords.z+block.z).id==0&&block.id!=BlockID.DuskRitualStone&&block.id!=BlockID.DawnRitualStone){
 				World.setBlock(coords.x+block.x, coords.y+block.y, coords.z+block.z, block.id);
 				bloodNetwork.getBlood(20);
-				Particles.addFarParticle(Native.ParticleType.happyVillager,coords.x+Math.random(), coords.y+1+Math.random(), coords.z+Math.random());
-				Particles.addFarParticle(Native.ParticleType.happyVillager,coords.x+Math.random(), coords.y+1+Math.random(), coords.z+Math.random());
-				Particles.addFarParticle(Native.ParticleType.happyVillager,coords.x+Math.random(), coords.y+1+Math.random(), coords.z+Math.random());
-				Particles.addFarParticle(Native.ParticleType.happyVillager,coords.x+Math.random(), coords.y+1+Math.random(), coords.z+Math.random());
-				Particles.addFarParticle(Native.ParticleType.happyVillager,coords.x+Math.random(), coords.y+1+Math.random(), coords.z+Math.random());
+				for(let i = 0; i<5; i++){
+					Particles.addFarParticle(Native.ParticleType.happyVillager,coords.x+Math.random(), coords.y+1+Math.random(), coords.z+Math.random(),0,0,0,0);
+				}				
 				break;
 			}
 		}
