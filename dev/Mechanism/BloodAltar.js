@@ -179,7 +179,7 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 	},
 	animation:null,
 	init:function(){
-		this.animation = new Animation.Item(this.x+.5, this.y+1.1, this.z+.5);
+		this.animation = new Animation.Item(this.x+.5, this.y+0.75, this.z+.5);
 		if(this.data.id!=0){
 			this.animation.describeItem({
 			id: this.data.id,
@@ -190,7 +190,7 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 		this.animation.load();
 		}
 		
-		this.bloodAnimation = new Animation.Base(this.x+.5, this.y-.6-.01+((this.data.blood/this.getBloodStorage())*2)/16-2/16, this.z+.5);
+		this.bloodAnimation = new Animation.Base(this.x+.5, this.y+9/16+((this.data.blood/this.getBloodStorage())*2)/16, this.z+.5);
 		this.bloodAnimation.describe({
 			render: bloodAnimationRender.getId(),
 			skin: "mob/blood_animation_0.png"
@@ -231,7 +231,7 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 		}
 		
 		if(World.getWorldTime()%2==0){
-			this.bloodAnimation.setPos(this.x+.5, this.y-.6-.01+((this.data.blood/this.getBloodStorage())*2)/16-2/17, this.z+.5);
+			this.bloodAnimation.setPos(this.x+.5, this.y+((this.data.blood/this.getBloodStorage())*2)/16-5/6-0.26+0.032, this.z+.5);
 		}
 		
 		if(this.data.progres<=0&&this.data.recipe){
@@ -247,7 +247,7 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 		this.animation.load();
 			this.data.recipe.define();	
 			this.data.recipe=null;
-			addBloodParticle(this.x,this.y+1,this.z, 20);
+			addBloodParticle(this.x,this.y+0.2,this.z, 20);
 		}
 	}
 		if(this.recipe==null&&this.data.progress==0){
@@ -256,7 +256,7 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 				this.data.blood= Math.max(this.data.blood-5,0);
 				if(bloodNetwork.getMaxBloodAmount()>bloodNetwork.getAmountBlood()){
 					if(Math.random()<0.05){
-				Particles.addFarParticle(10,this.x+Math.random(), this.y+Math.random()/3+0.8, this.z+Math.random());
+				Particles.addFarParticle(10,this.x+Math.random(), this.y+Math.random()/10+0.5, this.z+Math.random(),0,0,0,0);
 			}
 				}
 			   }
@@ -266,13 +266,13 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 			this.data.progres-=1*this.data.speed;
 			this.data.blood= Math.max(this.data.blood-(this.data.recipe.blood/this.data.recipe.time)*this.data.speed,0);
 			if(this.data.progres%10==0){
-				Particles.addFarParticle(10,this.x+.25+Math.random()/2, this.y+Math.random()/3+0.8, this.z+.25+Math.random()/2);
+				Particles.addFarParticle(10,this.x+.25+Math.random()/2, this.y+Math.random()/10+0.5, this.z+.25+Math.random()/2,0,0,0,0);
 			}
 		}
 		if(this.data.blood==0&&this.data.progres>0&&this.data.progres<=this.data.recipe.time-10&&this.data.id==this.data.recipe.id&&this.data.data==this.data.recipe.data){
 			this.data.progres+=10;
 			if(this.data.progres%40){
-				Particles.addFarParticle(5,this.x+Math.random(), this.y+Math.random()/3+0.8, this.z+Math.random());
+				Particles.addFarParticle(5,this.x+Math.random(), this.y+Math.random()/1+0.5, this.z+Math.random(),0,0,0,0);
 			}
 			}
 	},
@@ -310,7 +310,7 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 			this.animation.load();
 		Player.decreaseCarriedItem(1);
 		this.data.progress=0;
-				 }else{
+				 }else if(Player.getCarriedItem().id!=IDData.item.sacrificialKnife){
 				 
 		for(var i in altarBloodRecipe){
 			if(Player.getCarriedItem().id==altarBloodRecipe[i].id&&Player.getCarriedItem().data==altarBloodRecipe[i].data&&this.data.id==0){
@@ -339,7 +339,8 @@ TileEntity.registerPrototype(BlockID.bloodAltar, {
 });
 
 var render = new ICRender.Model();
-var render2 = new ICRender.Model();
+
+/*var render2 = new ICRender.Model();
 BlockRenderer.setStaticICRender (BlockID.bloodAltar, 0, render);
 BlockRenderer.setStaticICRender (BlockID.bloodAltar, 1, render2);
 var model = BlockRenderer.createModel();
@@ -379,3 +380,11 @@ model.addBox (3/16, 15/16, 11/16, 4/16, 1, 12/16,  [["blood_altar", 0],["blood_a
 model.addBox (12/16, 15/16, 11/16, 13/16, 1, 12/16,  [["blood_altar", 0],["blood_altar", 1],["blood_altar", 0]]);
 
 render.addEntry(model);
+*/
+
+var mesh = new RenderMesh();
+mesh.setBlockTexture("altar", 0);
+mesh.importFromFile(__dir__ + "model/bloodaltar.obj", "obj", {scale:[1/12, 1/12, 1/12],translate: [0.5, 0, 0.5]});
+var blockModel = new BlockRenderer.Model(mesh);
+render.addEntry(blockModel);
+BlockRenderer.setStaticICRender (BlockID.bloodAltar, 0, render);
