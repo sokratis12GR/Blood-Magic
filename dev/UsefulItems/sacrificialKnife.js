@@ -8,7 +8,7 @@ Recipes.addShaped({id: IDData.item.sacrificialKnife, count: 1, data: 0}, ["ggg",
 Item.registerUseFunction("sacrificialKnife", function(coords, item, block){
 		
 	if(block.id==IDData.block.bloodAltar){
-		addBloodParticle(coords.x,coords.y+1,coords.z,12);
+		addBloodParticle(coords.x,coords.y+0.6,coords.z,12);
 		World.getTileEntity(coords.x, coords.y, coords.z).addBlood(200);
 		if(getGameMode()==0){
 			Entity.setHealth(Player.get(),Entity.getHealth(Player.get())-2);
